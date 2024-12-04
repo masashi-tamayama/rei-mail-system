@@ -1,13 +1,14 @@
-/vendor/
-node_modules/
+# Node modules
+/node_modules
 npm-debug.log
 yarn-error.log
 
-# Laravel 4 specific
+# Vendor directory
+/vendor
+
+# Laravel specific
 bootstrap/compiled.php
 app/storage/
-
-# Laravel 5 & Lumen specific
 public/storage
 public/hot
 
@@ -15,9 +16,17 @@ public/hot
 public_html/storage
 public_html/hot
 
-storage/*.key
+# Environment files
 .env
+.env.backup
+
+# Homestead and Vagrant
 Homestead.yaml
 Homestead.json
 /.vagrant
+
+# PHPUnit cache
 .phpunit.result.cache
+
+# Storage encryption keys
+storage/*.key
