@@ -1,0 +1,8 @@
+.app-bg-color {
+    background-color: #006400 !important;
+}
+
+.icon-large {
+    font-size: 1.7em; /* 必要に応じてサイズを調整 */
+    vertical-align: middle; /* テキストとアイコンの高さを揃える */
+}
