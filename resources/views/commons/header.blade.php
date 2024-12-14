@@ -7,7 +7,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
-            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav mr-auto">
+                @if (Auth::check())
+                    <li class="nav-item">
+                        <a class="nav-link text-light custom-link" href="{{ route('mail-list.index') }}">メールリスト管理</a>
+                    </li>
+                @endif
+            </ul>
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item"><a href="" class="nav-link text-light">{{ Auth::user()->name }}</a></li>

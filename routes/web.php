@@ -19,4 +19,15 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+// トップページの画面表示
 Route::get('/', 'UsersController@index')->name('top');
+
+// ログイン認証後
+Route::group(['middleware' => 'auth'], function () {
+    // ユーザー情報の表示
+    Route::prefix('mail-list')->group(function () {
+        Route::get('/', 'MailListController@index')->name('mail-list.index');
+        Route::delete('/{id}', 'MailListController@destroy')->name('mail-list.destroy');
+        Route::post('/upload', 'MailListController@upload')->name('mail-list.upload');
+    });
+});
