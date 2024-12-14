@@ -30,4 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', 'MailListController@destroy')->name('mail-list.destroy');
         Route::post('/upload', 'MailListController@upload')->name('mail-list.upload');
     });
+    // アップロードフォームの表示
+    Route::get('mail-list/upload', 'MailListController@showUploadForm')->name('mail-list.upload.form');
+
 });

@@ -29,6 +29,16 @@ class MailListController extends Controller
         MailList::findOrFail($id)->delete();
         return redirect()->route('mail-list.index')->with('success', 'メールリストが削除されました。');
     }
+    
+    /**
+     * CSVアップロードフォームの表示
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showUploadForm()
+    {
+        return view('mail-list.upload'); // フォーム表示用のビューを返す
+    }    
 
     /**
      * CSVアップロード処理
