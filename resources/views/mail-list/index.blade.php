@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>メールリスト管理</h1>
-    @include('includes.success_messages')
+    @include('commons.success_messages')
     <table class="table">
         <thead>
             <tr>
