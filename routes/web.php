@@ -24,10 +24,14 @@ Route::get('/', 'UsersController@index')->name('top');
 
 // ログイン認証後
 Route::group(['middleware' => 'auth'], function () {
-    // ユーザー情報の表示
+    // メールリスト一覧と削除
     Route::prefix('mail-list')->group(function () {
         Route::get('/', 'MailListController@index')->name('mail-list.index');
         Route::delete('/{id}', 'MailListController@destroy')->name('mail-list.destroy');
-        Route::post('/upload', 'MailListController@upload')->name('mail-list.upload');
+    });
+    // CSVアップロードフォームと処理
+    Route::prefix('mail-list/upload')->group(function () {
+        Route::get('', 'MailListController@showUploadForm')->name('mail-list.upload.form');
+        Route::post('', 'MailListController@upload')->name('mail-list.upload');
     });
 });
