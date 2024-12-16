@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\MailList;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator; // Validator をインポート
 
 class MailListController extends Controller
 {
@@ -48,15 +49,61 @@ class MailListController extends Controller
      */
     public function upload(Request $request)
     {
-        // ファイルのバリデーション
+        // バリデーション: ファイルがCSV形式であることを確認
         $request->validate([
             'csv_file' => 'required|file|mimes:csv,txt|max:2048',
         ]);
+    
+        // アップロードされたCSVファイルのパスを取得
+        $path = $request->file('csv_file')->getRealPath();
+    
+        // ファイルを開いてパース
+        $file = fopen($path, 'r');
+        fgetcsv($file); // ヘッダー行をスキップ
+        $errors = []; // エラーメッセージを格納
+        $validData = []; // 有効なデータを格納
+    
+        while (($row = fgetcsv($file)) !== false) {
+            // バリデーションの定義
+            $validator = Validator::make(
+                [
+                    'name' => $row[0],
+                    'email' => $row[1],
+                ],
+                [
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|email|unique:mail_lists,email',
+                ]
+            );
+    
+            if ($validator->fails()) {
+                // エラーがある場合、エラーメッセージを生成
+                $errors[] = "名前: {$row[0]}, メールアドレス: {$row[1]} - エラー: " . implode(', ', $validator->errors()->all());
+                continue; // エラーがあれば次の行を処理
+            }
+    
+            // バリデーション成功の場合、データを保存用配列に追加
+            $validData[] = [
+                'name' => $row[0],
+                'email' => $row[1],
+            ];
+        }
+    
+        fclose($file);
 
-        // 一時保存
-        $path = $request->file('csv_file')->store('uploads');
-
-        // 成功メッセージ
-        return redirect()->route('mail-list.upload.form')->with('success', 'CSVファイルがアップロードされました！保存先: ' . $path);
+        // エラーがあればリダイレクトして表示
+        if (!empty($errors)) {
+            return redirect()->route('mail-list.upload.form')
+                ->withErrors($errors)
+                ->withInput();
+        }
+    
+        // 有効なデータをデータベースに保存
+        foreach ($validData as $data) {
+            MailList::create($data);
+        }
+    
+        // 成功メッセージを表示
+        return redirect()->route('mail-list.index')->with('success', count($validData) . " 件のデータがアップロードされました！");
     }
 }
