@@ -34,4 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('', 'MailListController@showUploadForm')->name('mail-list.upload.form');
         Route::post('', 'MailListController@upload')->name('mail-list.upload');
     });
+    // メールテンプレート作成フォームと保存処理
+    Route::prefix('mail-template')->group(function () {
+        Route::get('create', 'MailTemplateController@create')->name('mail-template.create'); // フォーム表示
+        Route::post('store', 'MailTemplateController@store')->name('mail-template.store');   // フォーム送信処理
+    });
 });
