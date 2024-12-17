@@ -11,6 +11,7 @@
         @include('commons.header')
         <div class="container">
             @include('commons.error_messages')
+            @include('commons.success_messages')
             @yield('content')
         </div>
         @include('commons.footer')

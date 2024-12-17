@@ -2,10 +2,6 @@
 
 @section('content')
     <h1>CSVアップロード</h1>
-
-    <!-- 成功メッセージの表示 -->
-    @include('commons.success_messages')
-
     <!-- アップロードフォーム -->
     <form action="{{ route('mail-list.upload') }}" method="POST" enctype="multipart/form-data">
         @csrf
