@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\MailTemplate;
+use App\Http\Requests\MailTemplateRequest;
 
 class MailTemplateController extends Controller
 {
@@ -20,24 +20,13 @@ class MailTemplateController extends Controller
     /**
      * メールテンプレートの保存処理
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  MailTemplateRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(MailTemplateRequest $request)
     {
-        // バリデーション
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'subject' => 'required|string|max:255',
-            'body' => 'required|string',
-        ]);
-
         // データ保存
-        MailTemplate::create([
-            'name' => $request->input('name'),
-            'subject' => $request->input('subject'),
-            'body' => $request->input('body'),
-        ]);
+        MailTemplate::create($request->validated());
 
         // リダイレクトと成功メッセージ
         return redirect()->route('mail-template.create')->with('success', 'メールテンプレートが作成されました！');
