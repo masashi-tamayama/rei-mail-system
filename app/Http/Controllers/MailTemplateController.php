@@ -31,4 +31,14 @@ class MailTemplateController extends Controller
         // リダイレクトと成功メッセージ
         return redirect()->route('mail-template.create')->with('success', 'メールテンプレートが作成されました！');
     }
+    
+    public function index()
+    {
+        // メールテンプレートを取得
+        $mailTemplates = MailTemplate::all();
+
+        // ビューにデータを渡す
+        return view('mail-template.index', compact('mailTemplates'));
+    }
+
 }
