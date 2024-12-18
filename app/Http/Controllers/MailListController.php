@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\MailList;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator; // Validator をインポート
-
+use Illuminate\Support\Facades\Validator;
 class MailListController extends Controller
 {
     /**

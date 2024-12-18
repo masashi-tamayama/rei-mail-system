@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // メールテンプレート作成フォームと保存処理
     Route::prefix('mail-template')->group(function () {
+        Route::get('/', 'MailTemplateController@index')->name('mail-template.index'); // 一覧表示
         Route::get('create', 'MailTemplateController@create')->name('mail-template.create'); // フォーム表示
         Route::post('store', 'MailTemplateController@store')->name('mail-template.store');   // フォーム送信処理
     });
