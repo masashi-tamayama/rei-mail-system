@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MailTemplate;
+use Illuminate\Http\Request;
 use App\Http\Requests\MailTemplateRequest;
 
 class MailTemplateController extends Controller
@@ -41,4 +42,28 @@ class MailTemplateController extends Controller
         return view('mail-template.index', compact('mailTemplates'));
     }
 
+    // 編集画面の表示
+    public function edit($id)
+    {
+        $mailTemplate = MailTemplate::findOrFail($id);
+        return view('mail-template.edit', compact('mailTemplate'));
+    }
+
+    // 更新処理
+    public function update(Request $request, $id)
+    {
+        // バリデーション
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'subject' => 'required|string|max:255',
+            'body' => 'required|string',
+        ]);
+
+        // データ更新
+        $mailTemplate = MailTemplate::findOrFail($id);
+        $mailTemplate->update($request->only(['name', 'subject', 'body']));
+
+        // リダイレクトと成功メッセージ
+        return redirect()->route('mail-template.index')->with('success', 'メールテンプレートが更新されました！');
+    }
 }
