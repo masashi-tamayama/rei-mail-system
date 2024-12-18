@@ -25,7 +25,7 @@
                     <td>
                         <!-- 操作ボタン -->
                         <a href="#" class="btn btn-info btn-sm">詳細</a>
-                        <a href="#" class="btn btn-primary btn-sm">編集</a>
+                        <a href="{{ route('mail-template.edit', $template->id) }}" class="btn btn-primary btn-sm">編集</a>
                         <form action="#" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
