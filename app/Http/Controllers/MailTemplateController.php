@@ -66,4 +66,14 @@ class MailTemplateController extends Controller
         // リダイレクトと成功メッセージ
         return redirect()->route('mail-template.index')->with('success', 'メールテンプレートが更新されました！');
     }
+
+    public function destroy($id)
+    {
+        // メールテンプレートを検索して削除
+        $mailTemplate = MailTemplate::findOrFail($id);
+        $mailTemplate->delete();
+
+        // リダイレクトと成功メッセージ
+        return redirect()->route('mail-template.index')->with('success', 'メールテンプレートが削除されました！');
+    }
 }

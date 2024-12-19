@@ -26,7 +26,7 @@
                         <!-- 操作ボタン -->
                         <a href="#" class="btn btn-info btn-sm">詳細</a>
                         <a href="{{ route('mail-template.edit', $template->id) }}" class="btn btn-primary btn-sm">編集</a>
-                        <form action="#" method="POST" style="display:inline;">
+                        <form action="{{ route('mail-template.destroy', $template->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">削除</button>
