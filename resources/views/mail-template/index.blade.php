@@ -24,7 +24,7 @@
                     <td>{{ $template->created_at->format('Y-m-d') }}</td>
                     <td>
                         <!-- 操作ボタン -->
-                        <a href="#" class="btn btn-info btn-sm">詳細</a>
+                        <a href="{{ route('mail-template.show', $template->id) }}" class="btn btn-info btn-sm">詳細</a>
                         <a href="{{ route('mail-template.edit', $template->id) }}" class="btn btn-primary btn-sm">編集</a>
                         <form action="{{ route('mail-template.destroy', $template->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
                             @csrf
