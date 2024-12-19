@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MailList;
-use Illuminate\Http\Request;
+use App\Http\Requests\CSVUploadRequest;
 use Illuminate\Support\Facades\Validator;
 class MailListController extends Controller
 {
@@ -43,16 +43,11 @@ class MailListController extends Controller
     /**
      * CSVアップロード処理
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CSVUploadRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function upload(Request $request)
+    public function upload(CSVUploadRequest $request)
     {
-        // バリデーション: ファイルがCSV形式であることを確認
-        $request->validate([
-            'csv_file' => 'required|file|mimes:csv,txt|max:2048',
-        ]);
-    
         // アップロードされたCSVファイルのパスを取得
         $path = $request->file('csv_file')->getRealPath();
     
