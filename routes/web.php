@@ -41,5 +41,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('store', 'MailTemplateController@store')->name('mail-template.store');   // 作成保存
         Route::get('edit/{id}', 'MailTemplateController@edit')->name('mail-template.edit');  // 編集フォーム
         Route::post('update/{id}', 'MailTemplateController@update')->name('mail-template.update'); // 更新処理
+        Route::delete('mail-template/{id}', 'MailTemplateController@destroy')->name('mail-template.destroy'); // 削除処理
     });
 });
