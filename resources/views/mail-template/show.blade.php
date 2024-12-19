@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <th>本文</th>
-            <td>{{ nl2br(e($mailTemplate->body)) }}</td>
+            <td>{!! nl2br(e($mailTemplate->body)) !!}</td>
         </tr>
         <tr>
             <th>作成日</th>

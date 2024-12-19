@@ -7,10 +7,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mx-auto">
                 @if (Auth::check())
                     <li class="nav-item">
                         <a class="nav-link text-light custom-link" href="{{ route('mail-list.index') }}">メールリスト管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light custom-link" href="{{ route('mail-template.index') }}">メールテンプレート一覧</a>
                     </li>
                 @endif
             </ul>
